@@ -27,6 +27,8 @@ A minimalist Vim plugin manager.
 [Download plug.vim](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
 and put it in the "autoload" directory.
 
+#### Vim
+
 ###### Unix
 
 ```sh
@@ -34,7 +36,27 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-###### Neovim
+You can automate the process by putting the command in your Vim configuration
+file as suggested [here][auto].
+
+[auto]: https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+
+###### Windows (PowerShell)
+
+```powershell
+md ~\vimfiles\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\vimfiles\autoload\plug.vim"
+  )
+)
+```
+
+#### Neovim
+
+###### Unix
 
 ```sh
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -44,17 +66,25 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 ###### Windows (PowerShell)
 
 ```powershell
-md ~\vimfiles\autoload
+md ~\AppData\Local\nvim\autoload
 $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-(New-Object Net.WebClient).DownloadFile($uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\vimfiles\autoload\plug.vim"))
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\AppData\Local\nvim\autoload\plug.vim"
+  )
+)
 ```
 
 ### Getting Help
 
-- See the [requirements] page for debugging information & tested configurations.
-- See the [FAQ] for common problems and questions.
-- Create an [issue](https://github.com/junegunn/vim-plug/issues/new).
+- See [tutorial] page to learn the basics of vim-plug
+- See [tips] and [FAQ] pages for common problems and questions
+- See [requirements] page for debugging information & tested configurations
+- Create an [issue](https://github.com/junegunn/vim-plug/issues/new)
 
+[tutorial]: https://github.com/junegunn/vim-plug/wiki/tutorial
+[tips]: https://github.com/junegunn/vim-plug/wiki/tips
 [FAQ]: https://github.com/junegunn/vim-plug/wiki/faq
 [requirements]: https://github.com/junegunn/vim-plug/wiki/requirements
 
@@ -71,7 +101,9 @@ Add a vim-plug section to your `~/.vimrc` (or `~/.config/nvim/init.vim` for Neov
 #### Example
 
 ```vim
-" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
@@ -116,7 +148,7 @@ Reload .vimrc and `:PlugInstall` to install plugins.
 | ----------------------------------- | ------------------------------------------------------------------ |
 | `PlugInstall [name ...] [#threads]` | Install plugins                                                    |
 | `PlugUpdate [name ...] [#threads]`  | Install or update plugins                                          |
-| `PlugClean[!]`                      | Remove unused directories (bang version will clean without prompt) |
+| `PlugClean[!]`                      | Remove unlisted plugins (bang version will clean without prompt) |
 | `PlugUpgrade`                       | Upgrade vim-plug itself                                            |
 | `PlugStatus`                        | Check the status of plugins                                        |
 | `PlugDiff`                          | Examine changes from the previous update and the pending changes   |

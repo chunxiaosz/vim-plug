@@ -1,4 +1,5 @@
 language: ruby
+dist: trusty
 sudo: false
 env:
   global:
@@ -6,7 +7,7 @@ env:
     - PATH=$DEPS/bin:$PATH
 matrix:
   include:
-    - env: ENV=vim72
+    - env: ENV=vim74
       rvm: 1.8.7
       addons: { apt: { packages: [vim-nox] } }
     - env: ENV=python
@@ -25,7 +26,7 @@ install: |
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
 
-  if [ "$ENV" == "vim72" ]; then
+  if [ "$ENV" == "vim74" ]; then
     mkdir -p ${DEPS}/bin
     ln -s /usr/bin/vim.nox ${DEPS}/bin/vim
     return
@@ -53,6 +54,7 @@ install: |
 
   git clone --depth 1 https://github.com/vim/vim
   cd vim
+  export PATH=/usr/bin:$PATH
   ./configure $C_OPTS
   make
   make install

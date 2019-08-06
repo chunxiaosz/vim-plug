@@ -77,13 +77,17 @@ DOC
 
   make_dirs yyy/ yyy
   make_dirs yyy/after yyy
+  mkdir -p "$PLUG_FIXTURES/yyy/rtp/doc"
+  cat > "$PLUG_FIXTURES/yyy/rtp/doc/yyy.txt" << DOC
+hello *yyy*
+DOC
   gitinit yyy
 
   make_dirs z1/ z1
   make_dirs z2/ z2
 
   rm -rf "$PLUG_FIXTURES/ftplugin-msg"
-  mkdir -p "$PLUG_FIXTURES/ftplugin-msg/ftplugin"
+  mkdir -p "$PLUG_FIXTURES"/ftplugin-msg/{plugin,ftplugin}
   echo "echomsg 'ftplugin-c'" > "$PLUG_FIXTURES/ftplugin-msg/ftplugin/c.vim"
   echo "echomsg 'ftplugin-java'" > "$PLUG_FIXTURES/ftplugin-msg/ftplugin/java.vim"
 
